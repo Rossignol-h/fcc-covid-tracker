@@ -1,6 +1,60 @@
 <script>
-	export let segment;
+	let isOpen = false;
+  export let segment;
+  function toggleNav() {
+    isOpen = !isOpen
+		}
 </script>
+
+<!----------------------------------------------------------- HTML  ---->
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="logo.jpg" width="100" height="100" alt="logo">
+				</a>
+
+    <span
+      class="navbar-burger"
+      class:is-active={isOpen}
+      on:click={toggleNav}
+      aria-label="menu"
+      aria-expanded="false">
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+    </span>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu"class:is-active={isOpen}>
+    <div class="navbar-start">
+      <a class="navbar-item" class:is-active={segment === undefined} href="/">
+        Home
+      </a>
+
+      <a class="navbar-item" href="/">
+        About
+						</a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="/">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href="/">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+
+</nav>
+
+
+<!----------------------------------------------------------- CSS  ---->
 
 <style>
 	nav {
@@ -8,6 +62,10 @@
 		font-weight: 300;
 		padding: 0 1em;
 	}
+
+.navbar-item img {
+	max-height: none;
+}
 
 	ul {
 		margin: 0;
@@ -32,6 +90,7 @@
 	}
 
 	[aria-current]::after {
+		
 		position: absolute;
 		content: '';
 		width: calc(100% - 1em);
@@ -47,14 +106,3 @@
 		display: block;
 	}
 </style>
-
-<nav>
-	<ul>
-		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
-		<li><a aria-current="{segment === 'about' ? 'page' : undefined}" href="about">about</a></li>
-
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<li><a rel=prefetch aria-current="{segment === 'blog' ? 'page' : undefined}" href="blog">blog</a></li>
-	</ul>
-</nav>
